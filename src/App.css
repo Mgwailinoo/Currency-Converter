@@ -1,0 +1,36 @@
+body {
+  background-color: #f8f8f8 !important;
+}
+
+/* To hide the react-error-overlay page */
+body > iframe {
+  display: none;
+}
+
+.container {
+  background: #ffffff;
+  height: 100vh;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  background: #d3d3d3;
+  font-size: 16px;
+}
+
+.header .col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 50px;
+}
+
+.ant-select {
+  width: 180px;
+}
+
+.label {
+  margin-right: 15px;
+}

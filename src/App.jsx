@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import "./App.css";
 
 function formatCurrency(amount) {
   return parseFloat(amount).toLocaleString("en-US");
@@ -26,7 +27,8 @@ function App() {
       try {
         setLoading(true);
         setError(false);
-        const options = {
+
+        const requestOptions = {
           method: "GET",
           headers: { accept: "application/json" },
         };
@@ -36,10 +38,8 @@ function App() {
           throw new Error("Please enter a valid amount");
         }
 
-        const response = await fetch(
-          `https://api.fastforex.io/convert?amount=${amount}&from=${fromCur}&to=${toCur}&api_key=700243c13e-a8aca05958-rycm9o`,
-          options
-        );
+        const url = `https://api.fastforex.io/convert?amount=${amount}&from=${fromCur}&to=${toCur}&api_key=700243c13e-a8aca05958-rycm9o`;
+        const response = await fetch(url, requestOptions);
 
         if (!response.ok) {
           throw new Error("Something happened with fetching");
@@ -57,8 +57,19 @@ function App() {
     convertRate();
   }, [amount, fromCur, toCur]);
 
+  /**
+   * Handle the change event for the amount input field.
+   * @param {Event} e - The event object.
+   */
   function handleAmountChange(e) {
-    setAmount(parseFloat(e.target.value.replace(/[^\d.]/g, "")));
+    // Remove any non-digit or non-decimal point characters from the input value
+    const cleanedValue = e.target.value.replace(/[^\d.]/g, "");
+
+    // Convert the cleaned value to a floating point number
+    const amount = parseFloat(cleanedValue);
+
+    // Set the amount state to the converted value
+    setAmount(amount);
   }
 
   return (
